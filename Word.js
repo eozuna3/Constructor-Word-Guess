@@ -1,37 +1,21 @@
 var Letterofword = require("./Letter.js");
 
-// var Randomword = function (word){
-//   this.wordArray = []
-// }
+var Randomword = function (){
+  this.wordArray = [];
 
-var newLetter = new Letterofword("a");
+  this.returnString = function () {
+    var wordString = "";
+    for (let index = 0; index < this.wordArray.length; index++) { 
+      wordString += (this.wordArray[index].beenGuessed() + " ");  
+    }
+     return wordString;
+  }
 
-console.log(newLetter);
+  this.checkArray =  function(guessedLetter) {
+    for (let index = 0; index < this.wordArray.length; index++) {
+      this.wordArray[index].checkLetter(guessedLetter);      
+    }
+  }
+}
 
-var test = newLetter.beenGuessed();
-
-console.log(test);
-
-newLetter.checkLetter("");
-
-test = newLetter.guessed;
-
-console.log(test);
-
-console.log(newLetter.beenGuessed());
-
-newLetter.checkLetter("p");
-
-test = newLetter.guessed;
-
-console.log(test);
-
-console.log(newLetter.beenGuessed());
-
-newLetter.checkLetter("a");
-
-test = newLetter.guessed;
-
-console.log(test);
-
-console.log(newLetter.beenGuessed());
+module.exports = Randomword;
