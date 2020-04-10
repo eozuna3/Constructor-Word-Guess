@@ -58,32 +58,30 @@ function beginNewGame() {
 //  Function to Play the Game
 function playGame() {
 //   //  Use Inquirer module to obtain need guess from CLI
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: "Please guess a letter for selected name of a Star Wars character.",
-//         name: "userGuess",
-//         //  Validate function to make sure no blank response is given, no more than 1 character is entered, and to make sure the character entered is a letter.
-//         validate: function validateUserGuess(userGuess) {
-//           var letters = /^[A-Za-z]+$/;
-//           if (userGuess !== "" && userGuess.length === 1 && userGuess.match(letters) !== null) {
-//             return userGuess;
-//           }
-//         }
-//       }
-//     ])
-//     .then(function (inquirerResponse) {
-//       console.log(inquirerResponse.userGuess);
-//       //var guess = inquirerResponse.userGuess.toLowerCase();
-//       //  Call method to see if letter has been guessed
-//       //if (alreadyGuessed(guess) === false) {
-//         //console.log(guess)
-//         // guessArray.push(guess);
-//         // guessLeft--;
-//         //newWord.checkArray(inquirerResponse.userGuess.toLowerCase());
-//         //console.log(displayWordArray() + "\n\n");
-//       //}
+   inquirer
+     .prompt([
+       {
+         type: "input",
+         message: "Please guess a letter for selected name of a Star Wars character.",
+         name: "userGuess",
+         //  Validate function to make sure no blank response is given, no more than 1 character is entered, and to make sure the character entered is a letter.
+         validate: function validateUserGuess(userGuess) {
+            var letters = /^[A-Za-z]+$/;
+            if (userGuess !== "" && userGuess.length === 1 && userGuess.match(letters) !== null) {
+            return true;
+            }
+          }
+       },
+     ]).then(function (inquirerResponse) {
+       var guess = inquirerResponse.userGuess.toLowerCase();
+       //  Call method to see if letter has been guessed
+//       if (alreadyGuessed(guess) === false) {
+         console.log(guess)
+         // guessArray.push(guess);
+         // guessLeft--;
+         //newWord.checkArray(inquirerResponse.userGuess.toLowerCase());
+         //console.log(displayWordArray() + "\n\n");
+          //}
 
 //       // inquirer
 //       //   .prompt([
@@ -101,7 +99,7 @@ function playGame() {
 //       //     }
 //       //   });
       
-//     });
+     });
 }
 
 beginNewGame();
