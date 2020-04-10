@@ -30,6 +30,7 @@ console.log(randomPosition());
 
 // Function to create New Word object from the constructor
 function createWordObject(word) {
+  console.log(word);
   var randomArray = word.split("");
   newWord = new Randomword(randomArray);
   newWord.createArrayObjects();
@@ -44,7 +45,9 @@ function displayWordArray() {
   return displayString;
 }
 
-// Function to Start and restart games
+//  Function to ask if user wishes to continue the game
+
+//  Function to Start and restart games
 function beginNewGame() {
   newWord = {};
   createWordObject(characterNames[randomPosition()]);
@@ -62,7 +65,7 @@ function playGame() {
      .prompt([
        {
          type: "input",
-         message: "Please guess a letter for selected name of a Star Wars character.",
+         message: "Please guess a letter for the selected name of a Star Wars character.",
          name: "userGuess",
          //  Validate function to make sure no blank response is given, no more than 1 character is entered, and to make sure the character entered is a letter.
          validate: function validateUserGuess(userGuess) {
@@ -75,14 +78,16 @@ function playGame() {
      ]).then(function (inquirerResponse) {
        var guess = inquirerResponse.userGuess.toLowerCase();
        //  Call method to see if letter has been guessed
-//       if (alreadyGuessed(guess) === false) {
-         console.log(guess)
-         // guessArray.push(guess);
-         // guessLeft--;
-         //newWord.checkArray(inquirerResponse.userGuess.toLowerCase());
-         //console.log(displayWordArray() + "\n\n");
-          //}
-
+       if (alreadyGuessed(guess) === false) {
+         guessArray.push(guess);
+         guessesLeft--;
+         console.log(guessArray);
+         console.log("You have " + guessesLeft + " guesses left.");
+         newWord.checkArray(guess);
+         console.log(displayWordArray() + "\n\n");
+         playGame();
+        } else{
+          playGame();
 //       // inquirer
 //       //   .prompt([
 //       //     {
@@ -98,7 +103,7 @@ function playGame() {
 //       //       break;
 //       //     }
 //       //   });
-      
+        }
      });
 }
 

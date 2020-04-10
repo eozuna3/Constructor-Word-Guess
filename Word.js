@@ -11,12 +11,14 @@ var Randomword = function (randomArray){
      return wordString;
   }
 
+  //  Function that runs through each letter object of the array to see if the guessed letter is the same as one of the letters in the word array and if so update the object "guessed" value
   this.checkArray = function(guessedLetter) {
     for (let index = 0; index < this.wordArray.length; index++) {
-      this.wordArray[index].checkLetter(guessedLetter);      
+      this.wordArray[index].checkLetter(guessedLetter);
     }
   }
 
+  //  Function to create the array of letter objects based on the random word choosen 
   this.createArrayObjects = function(){
     for (let index = 0; index < this.wordArray.length; index++) {
       this.wordArray[index] = new Letterofword(this.wordArray[index]); 
