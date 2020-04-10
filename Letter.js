@@ -17,6 +17,7 @@ var Letterofword = function (letter) {
   this.checkLetter = function (guessedLetter) {
     if (guessedLetter === this.letter) {
       this.guessed = true;
+      return true;
     }
   };
 }

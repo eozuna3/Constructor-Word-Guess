@@ -13,8 +13,17 @@ var Randomword = function (randomArray){
 
   //  Function that runs through each letter object of the array to see if the guessed letter is the same as one of the letters in the word array and if so update the object "guessed" value
   this.checkArray = function(guessedLetter) {
+    var correctlyGuessed = 0;
     for (let index = 0; index < this.wordArray.length; index++) {
-      this.wordArray[index].checkLetter(guessedLetter);
+      if(this.wordArray[index].checkLetter(guessedLetter)){
+        correctlyGuessed++;
+      };
+    }
+    console.log(correctlyGuessed);
+    if(correctlyGuessed > 0){
+      return true;
+    } else {
+      return false;
     }
   }
 

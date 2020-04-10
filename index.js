@@ -4,9 +4,10 @@ var inquirer = require("inquirer");
 
 //  Creation of array of names to guess
 var characterNames = ["palpatine", "vader", "leia", "luke", "obi wan", "yoda", "han solo", "chewbacca", "boba fett", "jabba the hut"];
-var newWord;
+var newWordObject;
 var guessesLeft = 10;
 var guessArray = [];
+var newWordString;
 
 /*  -------------------  Functions to use for the game -----------------------------------*/
 
@@ -20,27 +21,40 @@ function alreadyGuessed(letter) {
   return false;
 }
 
+//  Function for when user guesses letter
+function guessedLetter(letter){
+  guessArray.push(letter);
+  console.log(guessArray);
+  if(newWordObject.checkArray(letter)){
+    console.log("\nCORRECT !!!\n");
+  } else {
+    console.log("\nINCORRECT !!!\n");
+    guessesLeft--;
+    console.log("You have " + guessesLeft + " guesses left.\n");
+  }
+
+  console.log(displayWordArray() + "\n\n");
+}
+
 //  Random Word Position Selector
 function randomPosition() {
   var random = Math.floor(Math.random() * 10);
   return random;
 }
 
-console.log(randomPosition());
-
 // Function to create New Word object from the constructor
 function createWordObject(word) {
   console.log(word);
   var randomArray = word.split("");
-  newWord = new Randomword(randomArray);
-  newWord.createArrayObjects();
+  newWordObject = new Randomword(randomArray);
+  newWordObject.createArrayObjects();
 }
 
 // Function to return a string for display in the CLI based on the values in the word array
 function displayWordArray() {
   var displayString = "";
-  for (let index = 0; index < newWord.wordArray.length; index++) {
-    displayString += newWord.wordArray[index].beenGuessed() + " ";
+  for (let index = 0; index < newWordObject.wordArray.length; index++) {
+    displayString += newWordObject.wordArray[index].beenGuessed() + " ";
   }
   return displayString;
 }
@@ -49,11 +63,12 @@ function displayWordArray() {
 
 //  Function to Start and restart games
 function beginNewGame() {
-  newWord = {};
-  createWordObject(characterNames[randomPosition()]);
+  newWordObject = {};
+  newWordString = characterNames[randomPosition()];
+  console.log(newWordString);
+  createWordObject(newWordString);
   guessesLeft = 10;
-
-  console.log("Start Star Wars Name Guess Game");
+  console.log("Start New Star Wars Name Guess Game");
   console.log(displayWordArray() + "\n");
   playGame();
 }
@@ -79,12 +94,14 @@ function playGame() {
        var guess = inquirerResponse.userGuess.toLowerCase();
        //  Call method to see if letter has been guessed
        if (alreadyGuessed(guess) === false) {
-         guessArray.push(guess);
-         guessesLeft--;
-         console.log(guessArray);
-         console.log("You have " + guessesLeft + " guesses left.");
-         newWord.checkArray(guess);
-         console.log(displayWordArray() + "\n\n");
+         guessedLetter(guess);
+         //  Tests to see if name was correctly completed
+         if(newWordObject.returnString() === newWordString){
+          console.log("\nYou Guessed the name.  CONGRADULATIONS!!!");
+          newGame();
+         } else{
+           playGame();
+         }
          playGame();
         } else{
           playGame();
