@@ -19,7 +19,6 @@ var Randomword = function (randomArray){
         correctlyGuessed++;
       };
     }
-    console.log(correctlyGuessed);
     if(correctlyGuessed > 0){
       return true;
     } else {

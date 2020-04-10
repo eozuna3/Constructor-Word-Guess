@@ -2,7 +2,7 @@
 var Randomword = require("./Word.js");
 var inquirer = require("inquirer");
 
-//  Creation of array of names to guess
+//  Creation of needed global variables, arrays, and objects for the games to function
 var characterNames = ["palpatine", "vader", "leia", "luke", "obi wan", "yoda", "han solo", "chewbacca", "boba fett", "jabba the hut"];
 var newWordObject;
 var guessesLeft = 10;
@@ -22,18 +22,16 @@ function alreadyGuessed(letter) {
 }
 
 //  Function for when user guesses letter
-function guessedLetter(letter){
+function guessedLetter(letter) {
   guessArray.push(letter);
-  console.log(guessArray);
-  if(newWordObject.checkArray(letter)){
+  if (newWordObject.checkArray(letter)) {
     console.log("\nCORRECT !!!\n");
   } else {
     console.log("\nINCORRECT !!!\n");
     guessesLeft--;
     console.log("You have " + guessesLeft + " guesses left.\n");
   }
-
-  console.log(displayWordArray() + "\n\n");
+  console.log(displayWordArray() + "\n");
 }
 
 //  Random Word Position Selector
@@ -44,7 +42,6 @@ function randomPosition() {
 
 // Function to create New Word object from the constructor
 function createWordObject(word) {
-  console.log(word);
   var randomArray = word.split("");
   newWordObject = new Randomword(randomArray);
   newWordObject.createArrayObjects();
@@ -60,75 +57,72 @@ function displayWordArray() {
 }
 
 //  Function to ask if user wishes to continue the game
+function playAgain() {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        message: "Do you wish to start a new game?",
+        name: "confirm",
+        default: false
+      },
+    ]).then(function (inquirerResponse) {
+      if (inquirerResponse.confirm) {
+        beginNewGame();
+      }
+    });
+}
 
 //  Function to Start and restart games
 function beginNewGame() {
   newWordObject = {};
   guessArray = [];
   newWordString = characterNames[randomPosition()];
-  console.log(newWordString);
   createWordObject(newWordString);
   guessesLeft = 10;
-  console.log("Start New Star Wars Name Guess Game");
+  console.log("\nStart New Star Wars Name Guess Game\n");
   console.log(displayWordArray() + "\n");
   playGame();
 }
 
 //  Function to Play the Game
 function playGame() {
-//   //  Use Inquirer module to obtain need guess from CLI
-   inquirer
-     .prompt([
-       {
-         type: "input",
-         message: "Please guess a letter for the selected name of a Star Wars character.",
-         name: "userGuess",
-         //  Validate function to make sure no blank response is given, no more than 1 character is entered, and to make sure the character entered is a letter.
-         validate: function validateUserGuess(userGuess) {
-            var letters = /^[A-Za-z]+$/;
-            if (userGuess !== "" && userGuess.length === 1 && userGuess.match(letters) !== null) {
+  //  Use Inquirer module to obtain need guess from CLI
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please guess a letter for the selected name of a Star Wars character.",
+        name: "userGuess",
+        //  Validate function to make sure no blank response is given, no more than 1 character is entered, and to make sure the character entered is a letter.
+        validate: function validateUserGuess(userGuess) {
+          var letters = /^[A-Za-z]+$/;
+          if (userGuess !== "" && userGuess.length === 1 && userGuess.match(letters) !== null) {
             return true;
-            }
           }
-       },
-     ]).then(function (inquirerResponse) {
-       var guess = inquirerResponse.userGuess.toLowerCase();
-       //  Call method to see if letter has been guessed
-       if (alreadyGuessed(guess) === false) {
-         guessedLetter(guess);
-         //  Tests to see if name was correctly completed
-         console.log(newWordObject.returnString());
-         console.log(newWordString);
-         if(newWordObject.returnString() === newWordString){
-          console.log("\nYou Guessed the name.  CONGRADULATIONS!!!\n");
-          //if(playAgain()){
-          beginNewGame();
-          //}
-         } else if(guessesLeft > 0) {
-           playGame();
-         } else{
-          console.log("\nYou ran out of guesses. SORRY!!!\n");
-          beginNewGame();
-         }
-        } else{
-          playGame();
-//       // inquirer
-//       //   .prompt([
-//       //     {
-//       //       type: "checkbox",
-//       //       message: "Do you wish to continue?",
-//       //       name: "confirm",
-//       //       default: true
-//       //     }
-//       //   ]).then(function (inquirerResponse2){
-//       //     if(confirm){
-//       //       playGame();
-//       //     } else{
-//       //       break;
-//       //     }
-//       //   });
         }
-     });
+      },
+    ]).then(function (inquirerResponse) {
+      var guess = inquirerResponse.userGuess.toLowerCase();
+      //  Call method to see if letter has been guessed
+      if (alreadyGuessed(guess) === false) {
+        guessedLetter(guess);
+        //  Tests to see if name was correctly completed
+        if (newWordObject.returnString() === newWordString) {
+          console.log("\nYou Guessed the name.  CONGRADULATIONS!!!\n");
+          playAgain();
+          //  check to make sure user still has guess left
+        } else if (guessesLeft > 0) {
+          playGame();
+          //  If you user runs out of guess and has not completed the word
+        } else {
+          console.log("\nYou ran out of guesses. SORRY!!!\n");
+          playAgain();
+        }
+      } else {
+        playGame();
+      }
+    });
 }
 
 beginNewGame();
