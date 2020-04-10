@@ -64,6 +64,7 @@ function displayWordArray() {
 //  Function to Start and restart games
 function beginNewGame() {
   newWordObject = {};
+  guessArray = [];
   newWordString = characterNames[randomPosition()];
   console.log(newWordString);
   createWordObject(newWordString);
@@ -96,13 +97,19 @@ function playGame() {
        if (alreadyGuessed(guess) === false) {
          guessedLetter(guess);
          //  Tests to see if name was correctly completed
+         console.log(newWordObject.returnString());
+         console.log(newWordString);
          if(newWordObject.returnString() === newWordString){
-          console.log("\nYou Guessed the name.  CONGRADULATIONS!!!");
-          newGame();
-         } else{
+          console.log("\nYou Guessed the name.  CONGRADULATIONS!!!\n");
+          //if(playAgain()){
+          beginNewGame();
+          //}
+         } else if(guessesLeft > 0) {
            playGame();
+         } else{
+          console.log("\nYou ran out of guesses. SORRY!!!\n");
+          beginNewGame();
          }
-         playGame();
         } else{
           playGame();
 //       // inquirer
