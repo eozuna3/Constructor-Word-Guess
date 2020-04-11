@@ -11,29 +11,6 @@ var newWordString;
 
 /*  -------------------  Functions to use for the game -----------------------------------*/
 
-// Function for checking to see if selected letter was already used
-function alreadyGuessed(letter) {
-  for (y = 0; y < guessArray.length; y++) {
-    if (letter === guessArray[y]) {
-      return true;
-    }
-  }
-  return false;
-}
-
-//  Function for when user guesses letter
-function guessedLetter(letter) {
-  guessArray.push(letter);
-  if (newWordObject.checkArray(letter)) {
-    console.log("\nCORRECT !!!\n");
-  } else {
-    console.log("\nINCORRECT !!!\n");
-    guessesLeft--;
-    console.log("You have " + guessesLeft + " guesses left.\n");
-  }
-  console.log(displayWordArray() + "\n");
-}
-
 //  Random Word Position Selector
 function randomPosition() {
   var random = Math.floor(Math.random() * 10);
@@ -56,23 +33,6 @@ function displayWordArray() {
   return displayString;
 }
 
-//  Function to ask if user wishes to continue the game
-function playAgain() {
-  inquirer
-    .prompt([
-      {
-        type: "confirm",
-        message: "Do you wish to start a new game?",
-        name: "confirm",
-        default: false
-      },
-    ]).then(function (inquirerResponse) {
-      if (inquirerResponse.confirm) {
-        beginNewGame();
-      }
-    });
-}
-
 //  Function to Start and restart games
 function beginNewGame() {
   newWordObject = {};
@@ -83,6 +43,29 @@ function beginNewGame() {
   console.log("\nStart New Star Wars Name Guess Game\n");
   console.log(displayWordArray() + "\n");
   playGame();
+}
+
+// Function for checking to see if selected letter was already used
+function alreadyGuessed(letter) {
+  for (y = 0; y < guessArray.length; y++) {
+    if (letter === guessArray[y]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+//  Function for when user guesses letter
+function guessedLetter(letter) {
+  guessArray.push(letter);
+  if (newWordObject.checkArray(letter)) {
+    console.log("\nCORRECT !!!\n");
+  } else {
+    console.log("\nINCORRECT !!!\n");
+    guessesLeft--;
+    console.log("You have " + guessesLeft + " guesses left.\n");
+  }
+  console.log(displayWordArray() + "\n");
 }
 
 //  Function to Play the Game
@@ -121,6 +104,23 @@ function playGame() {
         }
       } else {
         playGame();
+      }
+    });
+}
+
+//  Function to ask if user wishes to continue the game
+function playAgain() {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        message: "Do you wish to start a new game?",
+        name: "confirm",
+        default: false
+      },
+    ]).then(function (inquirerResponse) {
+      if (inquirerResponse.confirm) {
+        beginNewGame();
       }
     });
 }
