@@ -39,16 +39,12 @@ The application outputs that the game has started, and outputs a series of under
   ![Image of first screenshot](images/CWG-1.png)
 
 
-#### How to use command selections along with the other arguements passed
-The `concert-this` command uses the given artists name that follows the command selection, and then performs an API call to the Bands in Town API.  It then retrieves information about upcoming concerts for the given artist and then outputs to the terminal 
+#### What to enter into the command line
+The command line will only accept letters (either lowercase or uppercase) as inputs for the game.  Any other entry will not allow the game to continue.  Also leaving the input blank as well to not allow the game to move forward.
 
-  - Name of the venue
-  - Venue location
-  - Date of the 
-  
-  `concert-this`example: `$ node liri.js concert-this guns and roses`
+Once the user has entered a letter into the CLI the game moves on and will either notify the user if the letter they entered is a letter in the name they are trying to guess or whether it is not.  Below is a screen shot of this example.
 
-  ![Image of concert-this screenshot](images/ct-liri.png)
+  ![Image of correct and incorrect guess](images/CWG-2.png)
 
 ## Links associated with the application
 1.  Link to git hub repository for this app:  [Github Link](https://github.com/eozuna3/Constructor-Word-Guess)
