@@ -59,4 +59,3 @@ If the player runs out of guesses before they correctly complete the name, then 
 ## Links associated with the application
 1.  Link to git hub repository for this app:  [Github Link](https://github.com/eozuna3/Constructor-Word-Guess)
 2. Here is one of 2 links to videos showing how the application functions: [Liri-App-Part1](https://drive.google.com/file/d/1SVaWh8k7A5_K5M0B4cmQu4IAWU5Pa-IX/view?usp=sharing)
-3. Here is part 2 of the videos showing how the application functions: [Liri-App-Part2](https://drive.google.com/file/d/1s6c2yALl843_jyAkO4XizZBESVLdbSpN/view?usp=sharing)
