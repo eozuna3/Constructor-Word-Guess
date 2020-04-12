@@ -58,4 +58,4 @@ If the player runs out of guesses before they correctly complete the name, then 
 
 ## Links associated with the application
 1.  Link to git hub repository for this app:  [Github Link](https://github.com/eozuna3/Constructor-Word-Guess)
-2. Here is a links to videos showing how the application functions: [Constructor-Word-Guess-Game]()
+2. Here is a links to videos showing how the application functions: [Constructor-Word-Guess-Game](https://drive.google.com/file/d/1hbL28NIDCxZHkX-bcyZsvZi0PUa5oiIH/view?usp=sharing)
